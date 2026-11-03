@@ -1,3 +1,7 @@
+> **scutifer fork:** This fork adds synchronous, section-based incremental
+> parsing for editors. See the [parser API](packages/uniorg-parse/README.md#incremental-parsing-in-the-scutifer-fork).
+> The original parser, attribution, and GPL-3.0-or-later license are preserved.
+
 # ![uniorg](./logo.svg)
 
 [![build](https://github.com/rasendubi/uniorg/workflows/main/badge.svg)](https://github.com/rasendubi/uniorg/actions)

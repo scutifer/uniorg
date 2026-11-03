@@ -1,6 +1,6 @@
 {
   "name": "uniorg-parse",
-  "version": "3.2.2",
+  "version": "3.2.2-scutifer.1",
   "type": "module",
   "description": "uniorg plugin to parse org-mode",
   "keywords": [
@@ -11,7 +11,7 @@
     "parse"
   ],
   "author": "Oleksii Shmalko <rasen.dubi@gmail.com>",
-  "homepage": "https://github.com/rasendubi/uniorg",
+  "homepage": "https://github.com/scutifer/uniorg/tree/main/packages/uniorg-parse",
   "license": "GPL-3.0-or-later",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -24,7 +24,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rasendubi/uniorg.git"
+    "url": "git+https://github.com/scutifer/uniorg.git",
+    "directory": "packages/uniorg-parse"
   },
   "scripts": {
     "build": "rm -rf ./lib && tsc -p tsconfig.build.json",
@@ -34,7 +35,7 @@
     "test": "vitest"
   },
   "bugs": {
-    "url": "https://github.com/rasendubi/uniorg/issues"
+    "url": "https://github.com/scutifer/uniorg/issues"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",

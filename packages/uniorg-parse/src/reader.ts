@@ -1,8 +1,8 @@
 import type { Position } from 'unist';
 import type { VFile } from 'vfile';
-import { location } from 'vfile-location';
+import { SourceIndex } from './source-index.js';
 
-type Location = ReturnType<typeof location>;
+type Location = SourceIndex;
 
 export class Reader {
   readonly #text: string;
@@ -29,7 +29,7 @@ export class Reader {
     this.#left = 0;
     this.#right = this.#text.length;
     this.#vfile = vfile;
-    this.#location = location(vfile);
+    this.#location = new SourceIndex(this.#text);
   }
 
   public message(reason: string, offset?: number, ruleId?: string) {

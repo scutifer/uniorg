@@ -9,6 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
+    if: github.repository == 'rasendubi/uniorg'
     name: Release
     runs-on: ubuntu-latest
     steps:

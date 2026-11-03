@@ -2,6 +2,8 @@ import type { ParseOptions } from './parse-options.js';
 
 export class OrgRegexUtils {
   private options: ParseOptions;
+  private cachedLinkTypesRe?: string;
+  private cachedObjectRe?: RegExp;
 
   constructor(options: ParseOptions) {
     this.options = options;
@@ -27,7 +29,8 @@ export class OrgRegexUtils {
   }
 
   public linkTypesRe(): string {
-    return '(' + this.options.linkTypes.map(escapeRegExp).join('|') + '):';
+    return (this.cachedLinkTypesRe ??=
+      '(' + this.options.linkTypes.map(escapeRegExp).join('|') + '):');
   }
 
   /**
@@ -38,7 +41,7 @@ export class OrgRegexUtils {
    * specially in Parser.parseElement().
    */
   public objectRe(): RegExp {
-    return new RegExp(
+    return (this.cachedObjectRe ??= new RegExp(
       [
         // Sub/superscript.
         '(?:[_^][-{(*+.,\\p{Letter}\\p{Number}])',
@@ -72,7 +75,7 @@ export class OrgRegexUtils {
         '(?:call|src)_',
       ].join('|'),
       'mu'
-    );
+    ));
   }
 
   // see (org-item-re)
@@ -230,7 +233,7 @@ export class OrgRegexUtils {
   }
 }
 
-export function restrictionFor(type: string) {
+function buildObjectRestrictions() {
   const allObjects = new Set([
     'bold',
     'code',
@@ -342,7 +345,14 @@ export function restrictionFor(type: string) {
     'verse-block': standardSet,
   };
 
-  return objectRestrictions[type];
+  return objectRestrictions;
+}
+
+const objectRestrictions = buildObjectRestrictions();
+export function restrictionFor(type: string) {
+  const template = objectRestrictions[type];
+  // Citation parsing mutates its restriction. Never expose a shared template.
+  return template && new Set(template);
 }
 
 export const greaterElements = new Set([
